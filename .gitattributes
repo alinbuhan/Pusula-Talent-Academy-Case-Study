@@ -1,2 +1,26 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+
+--Her ürün için toplam satýþ tutarý ve satýþ sayýsý
+select
+P.ProductName,
+year(S.SaleDate) as SaleYear,
+Sum(S.Quantity * P.Price) as TotalSalesAmount,
+Count(S.SaleID) as NumberOfSales
+from Sales S
+join Products P on S.ProductID = P.ProductID
+group by
+P.ProductName,year(S.SaleDate)
+order by
+P.ProductName,SaleYear;
+
+
+
+-- Toplam satýþ tutarý en yüksek olan ürün
+select top 1
+P.ProductName,
+Sum(S.Quantity * Price) as TotalSalesAmount
+from Sales S
+join Products P on S.ProductID = P.ProductID
+group by
+P.ProductName
+order by
+TotalSalesAmount desc;
